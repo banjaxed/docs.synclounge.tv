@@ -79,3 +79,21 @@ This was provided by [LostSoulfly](https://github.com/LostSoulfly) in this [comm
 ### Caddy Subfolder
 
 If you have a working subfolder created, please contribute!
+
+### Caddy v2 Subdomain
+
+``` conf
+synclounge.example.com {
+        encode gzip
+        route /slserver/* {
+           reverse_proxy localhost:8089
+        }
+        route /socket.io/* {
+           rewrite /socket.io/ /slserver/socket.io/
+           reverse_proxy localhost:8089
+        }
+        reverse_proxy localhost:8088
+}
+```
+**NOTES:**
+- Make sure to use https:// in the custom server URL of the webapp.
